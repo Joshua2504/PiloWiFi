@@ -247,12 +247,11 @@ $bodyLines = [
 $body = implode("\n", $bodyLines);
 
 $host = 'mail.treudler.net';
-$user = 'system@pilowifi.net';
+$user = 'system@treudler.net';
 $from = 'system@pilowifi.net';
-$secure = 'ssl';
 $useTls = true;
-$port = 465;
-$pass = 'quoH4oghoma8foobieW3looghahgh8';
+$port = 587;
+$pass = $smtpPass;
 $to = 'contact@pilowifi.net';
 
 [$ok, $error] = smtp_send($host, $port, $user ?? '', $pass ?? '', $from ?? 'system@pilowifi.net', $to, $subject, $body, $useTls);
