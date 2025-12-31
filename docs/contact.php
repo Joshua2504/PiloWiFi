@@ -17,13 +17,16 @@ function wants_json(): bool
     return str_contains($accept, 'application/json') || $requestedWith === 'fetch' || $requestedWith === 'xmlhttprequest';
 }
 
-function send_json(int $status, bool $ok, string $message, ?string $error = null): void
+function send_json(int $status, bool $ok, string $message, ?string $error = null, array $extra = []): void
 {
     http_response_code($status);
     header('Content-Type: application/json; charset=UTF-8');
     $payload = ['ok' => $ok, 'message' => $message];
     if ($error !== null) {
         $payload['error'] = $error;
+    }
+    foreach ($extra as $key => $value) {
+        $payload[$key] = $value;
     }
     echo json_encode($payload);
     exit;
@@ -177,9 +180,15 @@ function smtp_send(
     return [true, ''];
 }
 
+$smtpPass = env_value('SMTP_PASS', '');
+$smtpDebug = [
+    'smtp_pass_set' => $smtpPass !== '',
+    'smtp_pass_len' => strlen($smtpPass),
+];
+
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     if (wants_json()) {
-        send_json(405, false, 'Method not allowed.');
+        send_json(405, false, 'Method not allowed.', null, $smtpDebug);
     }
     http_response_code(405);
     header('Content-Type: text/plain; charset=UTF-8');
@@ -190,7 +199,7 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
 $honeypot = trim((string) ($_POST['website'] ?? ''));
 if ($honeypot !== '') {
     if (wants_json()) {
-        send_json(400, false, 'Invalid submission.');
+        send_json(400, false, 'Invalid submission.', null, $smtpDebug);
     }
     http_response_code(400);
     header('Content-Type: text/plain; charset=UTF-8');
@@ -207,7 +216,7 @@ $notes = trim((string) ($_POST['notes'] ?? ''));
 
 if ($fullName === '' && $company === '' && $eventDate === '' && $attendees === '' && $location === '' && $notes === '') {
     if (wants_json()) {
-        send_json(400, false, 'Please fill in the form.');
+        send_json(400, false, 'Please fill in the form.', null, $smtpDebug);
     }
     http_response_code(400);
     header('Content-Type: text/plain; charset=UTF-8');
@@ -243,14 +252,14 @@ $from = 'system@pilowifi.net';
 $secure = 'tls';
 $useTls = true;
 $port = 587;
-$pass = env_value('SMTP_PASS', '');
+$pass = $smtpPass;
 $to = 'contact@pilowifi.net';
 
 [$ok, $error] = smtp_send($host, $port, $user ?? '', $pass ?? '', $from ?? 'system@pilowifi.net', $to, $subject, $body, $useTls);
 
 if (!$ok) {
     if (wants_json()) {
-        send_json(500, false, 'Email sending failed.', $error);
+        send_json(500, false, 'Email sending failed.', $error, $smtpDebug);
     }
     http_response_code(500);
     header('Content-Type: text/plain; charset=UTF-8');
@@ -264,7 +273,7 @@ if (!in_array($lang, ['nl', 'en', 'de'], true)) {
 }
 
 if (wants_json()) {
-    send_json(200, true, 'Message sent.');
+    send_json(200, true, 'Message sent.', null, $smtpDebug);
 }
 
 header('Location: index.html?lang=' . $lang . '#contact');
