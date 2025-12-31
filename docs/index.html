@@ -155,6 +155,10 @@
         box-shadow: 0 25px 50px rgba(240, 164, 74, 0.18);
       }
 
+      .gallery-img {
+        object-fit: cover;
+      }
+
       .cta-band {
         background: linear-gradient(135deg, rgba(240, 164, 74, 0.9), rgba(27, 142, 166, 0.9));
         color: #111827;
@@ -442,6 +446,75 @@
       </div>
     </section>
 
+    <section class="py-5" id="gallery">
+      <div class="container py-4">
+        <div class="row mb-4">
+          <div class="col-lg-7">
+            <p class="section-label" data-i18n="gallery.label">Galerij</p>
+            <h2 class="fw-bold" data-i18n="gallery.title">In actie bij events.</h2>
+            <p class="text-muted" data-i18n="gallery.lead">Een greep uit recente deployments en live operations.</p>
+          </div>
+        </div>
+        <div class="row g-3">
+          <div class="col-6 col-md-4 col-lg-3">
+            <div class="ratio ratio-4x3 rounded-4 overflow-hidden shadow-sm">
+              <img
+                src="img/grootse-markt-2025/1748943099642.jpeg"
+                class="w-100 h-100 gallery-img"
+                alt="Event WiFi deployment"
+                data-i18n-alt="gallery.alt1"
+                loading="lazy"
+              />
+            </div>
+          </div>
+          <div class="col-6 col-md-4 col-lg-3">
+            <div class="ratio ratio-4x3 rounded-4 overflow-hidden shadow-sm">
+              <img
+                src="img/grootse-markt-2025/1748943179728.jpeg"
+                class="w-100 h-100 gallery-img"
+                alt="Networking gear on-site"
+                data-i18n-alt="gallery.alt2"
+                loading="lazy"
+              />
+            </div>
+          </div>
+          <div class="col-6 col-md-4 col-lg-3">
+            <div class="ratio ratio-4x3 rounded-4 overflow-hidden shadow-sm">
+              <img
+                src="img/grootse-markt-2025/1748943274377.jpeg"
+                class="w-100 h-100 gallery-img"
+                alt="Event connectivity setup"
+                data-i18n-alt="gallery.alt3"
+                loading="lazy"
+              />
+            </div>
+          </div>
+          <div class="col-6 col-md-4 col-lg-3">
+            <div class="ratio ratio-4x3 rounded-4 overflow-hidden shadow-sm">
+              <img
+                src="img/grootse-markt-2025/1748943404515.jpeg"
+                class="w-100 h-100 gallery-img"
+                alt="Live event WiFi coverage"
+                data-i18n-alt="gallery.alt4"
+                loading="lazy"
+              />
+            </div>
+          </div>
+          <div class="col-12 col-md-8 col-lg-6">
+            <div class="ratio ratio-16x9 rounded-4 overflow-hidden shadow-sm">
+              <img
+                src="img/grootse-markt-2025/1748943441915.jpeg"
+                class="w-100 h-100 gallery-img"
+                alt="Event operations team"
+                data-i18n-alt="gallery.alt5"
+                loading="lazy"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <section class="py-5 pattern-bg" id="pricing">
       <div class="container py-4">
         <div class="row mb-4">
@@ -712,6 +785,14 @@
           "useCases.card2.body": "Betrouwbare conferencing, beveiligde VPN-toegang en snelle opbouw voor executive teams.",
           "useCases.card3.title": "Sport- en buitenevenementen",
           "useCases.card3.body": "Live scoring, media-uplink en broadcast-klare connectiviteit onderweg.",
+          "gallery.label": "Galerij",
+          "gallery.title": "In actie bij events.",
+          "gallery.lead": "Een greep uit recente deployments en live operations.",
+          "gallery.alt1": "Event-wifi op locatie",
+          "gallery.alt2": "Netwerkapparatuur op locatie",
+          "gallery.alt3": "Opbouw van eventconnectiviteit",
+          "gallery.alt4": "Live wifi-dekking tijdens het event",
+          "gallery.alt5": "Operations-team tijdens het event",
           "pricing.label": "Pakketten",
           "pricing.title": "Transparante pakketten die meeschalen.",
           "pricing.lead": "Elke deployment bevat monitoring, redundantie en ondersteuning op locatie.",
@@ -840,6 +921,14 @@
           "useCases.card2.body": "Reliable conferencing, secure VPN access, and fast setup for executive teams.",
           "useCases.card3.title": "Sports & Outdoor Events",
           "useCases.card3.body": "Live scoring, media uplink, and broadcast-ready connectivity on the move.",
+          "gallery.label": "Gallery",
+          "gallery.title": "In action at events.",
+          "gallery.lead": "A glimpse of recent deployments and live operations.",
+          "gallery.alt1": "On-site event WiFi",
+          "gallery.alt2": "Networking gear on site",
+          "gallery.alt3": "Event connectivity setup",
+          "gallery.alt4": "Live WiFi coverage at the event",
+          "gallery.alt5": "Operations team on site",
           "pricing.label": "Plans",
           "pricing.title": "Transparent packages with custom scale.",
           "pricing.lead": "Every deployment includes monitoring, redundancy, and on-site support.",
@@ -968,6 +1057,14 @@
           "useCases.card2.body": "Zuverlässige Konferenzen, sichere VPN-Zugänge und schneller Aufbau für Executive-Teams.",
           "useCases.card3.title": "Sport- & Outdoor-Events",
           "useCases.card3.body": "Live-Scoring, Media-Uplink und broadcast-fähige Konnektivität unterwegs.",
+          "gallery.label": "Galerie",
+          "gallery.title": "Im Einsatz bei Events.",
+          "gallery.lead": "Einblick in aktuelle Deployments und Live-Betrieb.",
+          "gallery.alt1": "Event-WLAN vor Ort",
+          "gallery.alt2": "Netzwerktechnik vor Ort",
+          "gallery.alt3": "Aufbau der Event-Konnektivität",
+          "gallery.alt4": "Live-WLAN-Abdeckung beim Event",
+          "gallery.alt5": "Operations-Team beim Event",
           "pricing.label": "Pakete",
           "pricing.title": "Transparente Pakete, die mitwachsen.",
           "pricing.lead": "Jedes Deployment umfasst Monitoring, Redundanz und Support vor Ort.",
@@ -1036,6 +1133,7 @@
 
       const textNodes = document.querySelectorAll("[data-i18n]");
       const placeholderNodes = document.querySelectorAll("[data-i18n-placeholder]");
+      const altNodes = document.querySelectorAll("[data-i18n-alt]");
       const languageButtons = document.querySelectorAll("[data-lang]");
       const contactForm = document.querySelector("[data-contact-form]");
       const contactStatus = document.querySelector("[data-contact-status]");
@@ -1072,6 +1170,13 @@
           const key = node.dataset.i18nPlaceholder;
           if (dict[key] !== undefined) {
             node.setAttribute("placeholder", dict[key]);
+          }
+        });
+
+        altNodes.forEach((node) => {
+          const key = node.dataset.i18nAlt;
+          if (dict[key] !== undefined) {
+            node.setAttribute("alt", dict[key]);
           }
         });
 
