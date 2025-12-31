@@ -223,6 +223,19 @@
         box-shadow: 0 25px 50px rgba(240, 164, 74, 0.18);
       }
 
+      .discount-pill {
+        background: rgba(240, 164, 74, 0.2);
+        border: 1px solid rgba(240, 164, 74, 0.45);
+        border-radius: 999px;
+        color: var(--night);
+        display: inline-flex;
+        align-items: center;
+        gap: 0.35rem;
+        font-weight: 600;
+        font-size: 0.85rem;
+        padding: 0.35rem 0.85rem;
+      }
+
       .gallery-img {
         object-fit: cover;
       }
@@ -747,6 +760,9 @@
             <p class="section-label" data-i18n="pricing.label">Pakketten</p>
             <h2 class="fw-bold" data-i18n="pricing.title">Transparante pakketten die meeschalen.</h2>
             <p class="text-muted" data-i18n="pricing.lead">Elke deployment bevat monitoring, redundantie en ondersteuning op locatie.</p>
+            <div class="mb-2">
+              <span class="discount-pill" data-i18n="pricing.discount">€ 100 korting per pakket</span>
+            </div>
             <p class="text-muted small mb-1" data-i18n="pricing.note">Prijzen per dag. Op- en afbouw en voorrijkosten worden apart berekend.</p>
             <p class="text-muted small mb-0" data-i18n="pricing.capacityNote">Gastcapaciteit hangt af van de uplink: Starlink tot 500 Mbps, glasvezel meerdere Gbps.</p>
           </div>
@@ -756,7 +772,10 @@
             <div class="plan-card h-100 p-4">
               <h5 class="fw-semibold" data-i18n="pricing.card1.title">Trailblazer</h5>
               <p class="text-muted" data-i18n="pricing.card1.subtitle">Tot 50 gasten gegarandeerd (meer mogelijk)</p>
-              <h3 class="fw-bold" data-i18n="pricing.card1.price">Vanaf € 250 / dag</h3>
+              <h3 class="fw-bold" data-i18n="pricing.card1.price">Vanaf € 150 / dag</h3>
+              <div class="mb-3">
+                <span class="discount-pill" data-i18n="pricing.card1.discount">€ 100 korting</span>
+              </div>
               <ul class="list-unstyled text-muted">
                 <li class="mb-2" data-i18n="pricing.card1.item1">• Enkele Starlink + 5G-back-up</li>
                 <li class="mb-2" data-i18n="pricing.card1.item2">• 6 access points</li>
@@ -771,7 +790,10 @@
                 <span class="badge text-bg-warning" data-i18n="pricing.card2.badge">Meest geboekt</span>
               </div>
               <p class="text-muted" data-i18n="pricing.card2.subtitle">Tot 150 gasten gegarandeerd (meer mogelijk)</p>
-              <h3 class="fw-bold" data-i18n="pricing.card2.price">Vanaf € 450 / dag</h3>
+              <h3 class="fw-bold" data-i18n="pricing.card2.price">Vanaf € 350 / dag</h3>
+              <div class="mb-3">
+                <span class="discount-pill" data-i18n="pricing.card2.discount">€ 100 korting</span>
+              </div>
               <ul class="list-unstyled text-muted">
                 <li class="mb-2" data-i18n="pricing.card2.item1">• Twee Starlink + bonded 5G</li>
                 <li class="mb-2" data-i18n="pricing.card2.item2">• 12 access points</li>
@@ -783,7 +805,10 @@
             <div class="plan-card h-100 p-4">
               <h5 class="fw-semibold" data-i18n="pricing.card3.title">Frontier</h5>
               <p class="text-muted" data-i18n="pricing.card3.subtitle">Tot 250 gasten gegarandeerd (meer mogelijk)</p>
-              <h3 class="fw-bold" data-i18n="pricing.card3.price">Vanaf € 650 / dag</h3>
+              <h3 class="fw-bold" data-i18n="pricing.card3.price">Vanaf € 550 / dag</h3>
+              <div class="mb-3">
+                <span class="discount-pill" data-i18n="pricing.card3.discount">€ 100 korting</span>
+              </div>
               <ul class="list-unstyled text-muted">
                 <li class="mb-2" data-i18n="pricing.card3.item1">• Multi-site mesh + redundantie</li>
                 <li class="mb-2" data-i18n="pricing.card3.item2">• Dedicated NOC-kanaal</li>
@@ -1063,24 +1088,28 @@
           "pricing.label": "Pakketten",
           "pricing.title": "Transparante pakketten die meeschalen.",
           "pricing.lead": "Elke deployment bevat monitoring, redundantie en ondersteuning op locatie.",
+          "pricing.discount": "€ 100 korting per pakket",
           "pricing.note": "Prijzen per dag. Op- en afbouw en voorrijkosten worden apart berekend.",
           "pricing.capacityNote": "Gastcapaciteit hangt af van de uplink: Starlink tot 500 Mbps, glasvezel meerdere Gbps.",
           "pricing.card1.title": "Trailblazer",
           "pricing.card1.subtitle": "Tot 50 gasten gegarandeerd (meer mogelijk)",
-          "pricing.card1.price": "Vanaf € 250 / dag",
+          "pricing.card1.price": "Vanaf € 150 / dag",
+          "pricing.card1.discount": "€ 100 korting",
           "pricing.card1.item1": "• Enkele Starlink + 5G-back-up",
           "pricing.card1.item2": "• 6 access points",
           "pricing.card1.item3": "• Monitoring op afstand",
           "pricing.card2.title": "Summit",
           "pricing.card2.badge": "Meest geboekt",
           "pricing.card2.subtitle": "Tot 150 gasten gegarandeerd (meer mogelijk)",
-          "pricing.card2.price": "Vanaf € 450 / dag",
+          "pricing.card2.price": "Vanaf € 350 / dag",
+          "pricing.card2.discount": "€ 100 korting",
           "pricing.card2.item1": "• Twee Starlink + bonded 5G",
           "pricing.card2.item2": "• 12 access points",
           "pricing.card2.item3": "• Engineer op locatie",
           "pricing.card3.title": "Frontier",
           "pricing.card3.subtitle": "Tot 250 gasten gegarandeerd (meer mogelijk)",
-          "pricing.card3.price": "Vanaf € 650 / dag",
+          "pricing.card3.price": "Vanaf € 550 / dag",
+          "pricing.card3.discount": "€ 100 korting",
           "pricing.card3.item1": "• Multi-site mesh + redundantie",
           "pricing.card3.item2": "• Dedicated NOC-kanaal",
           "pricing.card3.item3": "• SLA-uitbreidingen",
@@ -1232,24 +1261,28 @@
           "pricing.label": "Plans",
           "pricing.title": "Transparent packages with custom scale.",
           "pricing.lead": "Every deployment includes monitoring, redundancy, and on-site support.",
+          "pricing.discount": "€100 off each plan",
           "pricing.note": "Prices per day. Setup/teardown and travel costs are billed separately.",
           "pricing.capacityNote": "Guest capacity depends on the uplink: Starlink up to 500 Mbps, fiber delivers multi-Gbps.",
           "pricing.card1.title": "Trailblazer",
           "pricing.card1.subtitle": "Up to 50 guests guaranteed (more possible)",
-          "pricing.card1.price": "From €250 / day",
+          "pricing.card1.price": "From €150 / day",
+          "pricing.card1.discount": "€100 off",
           "pricing.card1.item1": "• Single Starlink + 5G backup",
           "pricing.card1.item2": "• 6 access points",
           "pricing.card1.item3": "• Remote monitoring",
           "pricing.card2.title": "Summit",
           "pricing.card2.badge": "Most booked",
           "pricing.card2.subtitle": "Up to 150 guests guaranteed (more possible)",
-          "pricing.card2.price": "From €450 / day",
+          "pricing.card2.price": "From €350 / day",
+          "pricing.card2.discount": "€100 off",
           "pricing.card2.item1": "• Dual Starlink + bonded 5G",
           "pricing.card2.item2": "• 12 access points",
           "pricing.card2.item3": "• On-site engineer",
           "pricing.card3.title": "Frontier",
           "pricing.card3.subtitle": "Up to 250 guests guaranteed (more possible)",
-          "pricing.card3.price": "From €650 / day",
+          "pricing.card3.price": "From €550 / day",
+          "pricing.card3.discount": "€100 off",
           "pricing.card3.item1": "• Multi-site mesh + redundancy",
           "pricing.card3.item2": "• Dedicated NOC channel",
           "pricing.card3.item3": "• SLA enhancements",
@@ -1401,24 +1434,28 @@
           "pricing.label": "Pakete",
           "pricing.title": "Transparente Pakete, die mitwachsen.",
           "pricing.lead": "Jedes Deployment umfasst Monitoring, Redundanz und Support vor Ort.",
+          "pricing.discount": "€ 100 Rabatt pro Paket",
           "pricing.note": "Preise pro Tag. Auf-/Abbau und Anfahrt werden separat berechnet.",
           "pricing.capacityNote": "Gästekapazität hängt vom Uplink ab: Starlink bis 500 Mbps, Glasfaser mehrere Gbps.",
           "pricing.card1.title": "Trailblazer",
           "pricing.card1.subtitle": "Bis zu 50 Gäste garantiert (mehr möglich)",
-          "pricing.card1.price": "Ab € 250 / Tag",
+          "pricing.card1.price": "Ab € 150 / Tag",
+          "pricing.card1.discount": "€ 100 Rabatt",
           "pricing.card1.item1": "• Einzelner Starlink + 5G-Backup",
           "pricing.card1.item2": "• 6 Access Points",
           "pricing.card1.item3": "• Remote-Monitoring",
           "pricing.card2.title": "Summit",
           "pricing.card2.badge": "Meist gebucht",
           "pricing.card2.subtitle": "Bis zu 150 Gäste garantiert (mehr möglich)",
-          "pricing.card2.price": "Ab € 450 / Tag",
+          "pricing.card2.price": "Ab € 350 / Tag",
+          "pricing.card2.discount": "€ 100 Rabatt",
           "pricing.card2.item1": "• Zwei Starlink + gebondetes 5G",
           "pricing.card2.item2": "• 12 Access Points",
           "pricing.card2.item3": "• Engineer vor Ort",
           "pricing.card3.title": "Frontier",
           "pricing.card3.subtitle": "Bis zu 250 Gäste garantiert (mehr möglich)",
-          "pricing.card3.price": "Ab € 650 / Tag",
+          "pricing.card3.price": "Ab € 550 / Tag",
+          "pricing.card3.discount": "€ 100 Rabatt",
           "pricing.card3.item1": "• Multi-Site-Mesh + Redundanz",
           "pricing.card3.item2": "• Dedizierter NOC-Kanal",
           "pricing.card3.item3": "• SLA-Erweiterungen",
