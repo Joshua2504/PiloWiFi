@@ -249,9 +249,9 @@ $body = implode("\n", $bodyLines);
 $host = 'mail.treudler.net';
 $user = 'system@pilowifi.net';
 $from = 'system@pilowifi.net';
-$secure = 'tls';
+$secure = 'ssl';
 $useTls = true;
-$port = 587;
+$port = 465;
 $pass = 'quoH4oghoma8foobieW3looghahgh8';
 $to = 'contact@pilowifi.net';
 
