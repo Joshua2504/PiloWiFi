@@ -247,12 +247,13 @@ $bodyLines = [
 $body = implode("\n", $bodyLines);
 
 $host = 'mail.treudler.net';
-$user = 'system@jarnowifi.net';
-$from = 'system@jarnowifi.net';
+$user = 'system@treudler.net';
+$from = 'system@treudler.net';
+$secure = 'tls';
 $useTls = true;
 $port = 587;
-$pass = $smtpPass;
-$to = 'contact@jarnowifi.net';
+$pass = quoH4oghoma8foobieW3looghahgh8;
+$to = 'joshua@treudler.net';
 
 [$ok, $error] = smtp_send($host, $port, $user ?? '', $pass ?? '', $from ?? 'system@jarnowifi.net', $to, $subject, $body, $useTls);
 
