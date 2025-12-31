@@ -247,14 +247,14 @@ $bodyLines = [
 $body = implode("\n", $bodyLines);
 
 $host = 'mail.treudler.net';
-$user = 'system@treudler.net';
-$from = 'system@pilowifi.net';
+$user = 'system@jarnowifi.net';
+$from = 'system@jarnowifi.net';
 $useTls = true;
 $port = 587;
 $pass = $smtpPass;
-$to = 'contact@pilowifi.net';
+$to = 'contact@jarnowifi.net';
 
-[$ok, $error] = smtp_send($host, $port, $user ?? '', $pass ?? '', $from ?? 'system@pilowifi.net', $to, $subject, $body, $useTls);
+[$ok, $error] = smtp_send($host, $port, $user ?? '', $pass ?? '', $from ?? 'system@jarnowifi.net', $to, $subject, $body, $useTls);
 
 if (!$ok) {
     if (wants_json()) {
