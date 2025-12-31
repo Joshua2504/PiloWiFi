@@ -22,6 +22,10 @@ jobs:
           chmod 600 ~/.ssh/id_rsa
           ssh-keyscan -H krakatau.treudler.net >> ~/.ssh/known_hosts
 
+      - name: Prepare env file
+        run: |
+          printf 'SMTP_PASS=%s\n' "${{ secrets.SMTP_PASS }}" > .env
+
       - name: Sync files
         run: |
           rsync -az --delete \
@@ -32,7 +36,6 @@ jobs:
         run: |
           ssh root@krakatau.treudler.net "\
             cd /root/docker/jarnowifi/website && \
-            export SMTP_PASS='${{ secrets.SMTP_PASS }}' && \
             docker compose down && \
             docker compose up -d \
           "
