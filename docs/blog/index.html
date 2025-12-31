@@ -143,6 +143,14 @@
             <div class="mt-5 d-none" data-post-list>
               <h4 class="fw-semibold mb-3">More posts</h4>
               <div class="row g-4" data-post-list-container></div>
+              <div class="mt-5">
+                <div class="d-flex align-items-center justify-content-between flex-wrap gap-2 mb-3">
+                  <h4 class="fw-semibold mb-0">PD0DP feed</h4>
+                  <a class="text-decoration-none" href="https://pd0dp.nl/blogs/feed/" target="_blank" rel="noopener">XML</a>
+                </div>
+                <div class="row g-4" data-feed-list></div>
+                <p class="text-muted small mb-0 d-none" data-feed-status>Unable to load the feed right now.</p>
+              </div>
             </div>
           </div>
         </div>
@@ -162,6 +170,8 @@
       const postGallery = document.querySelector("[data-post-gallery]");
       const postList = document.querySelector("[data-post-list]");
       const postListContainer = document.querySelector("[data-post-list-container]");
+      const feedList = document.querySelector("[data-feed-list]");
+      const feedStatus = document.querySelector("[data-feed-status]");
 
       function formatDate(dateString) {
         if (!dateString) {
@@ -310,6 +320,95 @@
         postList.classList.remove("d-none");
       }
 
+      function stripHtml(html) {
+        if (!html) {
+          return "";
+        }
+        const temp = document.createElement("div");
+        temp.innerHTML = html;
+        return temp.textContent || "";
+      }
+
+      function createFeedCard(item) {
+        const col = document.createElement("div");
+        col.className = "col-md-6";
+        const card = document.createElement("article");
+        card.className = "card blog-card h-100 position-relative";
+
+        const body = document.createElement("div");
+        body.className = "card-body d-flex flex-column";
+
+        const meta = document.createElement("p");
+        meta.className = "post-meta mb-2";
+        meta.textContent = formatDate(item.date);
+        body.appendChild(meta);
+
+        if (item.link) {
+          const titleLink = document.createElement("a");
+          titleLink.className = "fw-semibold blog-link stretched-link";
+          titleLink.textContent = item.title || "";
+          titleLink.href = item.link;
+          titleLink.target = "_blank";
+          titleLink.rel = "noopener";
+          body.appendChild(titleLink);
+        } else if (item.title) {
+          const title = document.createElement("h5");
+          title.className = "fw-semibold";
+          title.textContent = item.title;
+          body.appendChild(title);
+        }
+
+        if (item.excerpt) {
+          const excerpt = document.createElement("p");
+          excerpt.className = "text-muted mt-2 mb-0";
+          excerpt.textContent = item.excerpt;
+          body.appendChild(excerpt);
+        }
+
+        card.appendChild(body);
+        col.appendChild(card);
+        return col;
+      }
+
+      async function loadFeedPosts() {
+        if (!feedList || !feedStatus) {
+          return;
+        }
+        try {
+          const response = await fetch("https://pd0dp.nl/blogs/feed/", { cache: "no-store" });
+          if (!response.ok) {
+            throw new Error("Feed request failed");
+          }
+          const xmlText = await response.text();
+          const doc = new DOMParser().parseFromString(xmlText, "text/xml");
+          const items = Array.from(doc.querySelectorAll("item")).slice(0, 6).map((item) => {
+            const title = item.querySelector("title")?.textContent?.trim() || "";
+            const link = item.querySelector("link")?.textContent?.trim() || "";
+            const date = item.querySelector("pubDate")?.textContent?.trim() || "";
+            const description = item.querySelector("description")?.textContent || "";
+            const cleanText = stripHtml(description).replace(/\s+/g, " ").trim();
+            const excerpt = cleanText.length > 180 ? `${cleanText.slice(0, 177).trim()}...` : cleanText;
+            return { title, link, date, excerpt };
+          }).filter((entry) => entry.title);
+
+          feedList.innerHTML = "";
+          if (items.length === 0) {
+            feedStatus.textContent = "No feed posts found.";
+            feedStatus.classList.remove("d-none");
+            return;
+          }
+
+          items.forEach((entry) => {
+            feedList.appendChild(createFeedCard(entry));
+          });
+          feedStatus.classList.add("d-none");
+        } catch (error) {
+          console.error("Feed load error:", error);
+          feedStatus.textContent = "Unable to load the feed right now.";
+          feedStatus.classList.remove("d-none");
+        }
+      }
+
       function setHomeLink() {
         if (!homeLink) {
           return;
@@ -350,12 +449,14 @@
           if (!postId) {
             setStatus("Select a post to read.", "info");
             renderPostList(posts);
+            loadFeedPosts();
             return;
           }
 
           if (!post) {
             setStatus("Post not found. Browse other posts below.", "error");
             renderPostList(posts);
+            loadFeedPosts();
             return;
           }
 
