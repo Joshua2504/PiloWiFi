@@ -32,6 +32,7 @@
       integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
       crossorigin="anonymous"
     />
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-D6BR389F7B"></script>
@@ -238,6 +239,10 @@
 
       .gallery-img {
         object-fit: cover;
+      }
+
+      .enlargeable {
+        cursor: pointer;
       }
 
       .cta-band {
@@ -648,7 +653,7 @@
             <div class="ratio ratio-4x3 rounded-4 overflow-hidden shadow-sm">
               <img
                 src="img/grootse-markt-2025/1748943099642.jpeg"
-                class="w-100 h-100 gallery-img"
+                class="w-100 h-100 gallery-img enlargeable"
                 alt="Event WiFi deployment"
                 data-i18n-alt="gallery.alt1"
                 loading="lazy"
@@ -659,7 +664,7 @@
             <div class="ratio ratio-4x3 rounded-4 overflow-hidden shadow-sm">
               <img
                 src="img/grootse-markt-2025/1748943179728.jpeg"
-                class="w-100 h-100 gallery-img"
+                class="w-100 h-100 gallery-img enlargeable"
                 alt="Networking gear on-site"
                 data-i18n-alt="gallery.alt2"
                 loading="lazy"
@@ -670,7 +675,7 @@
             <div class="ratio ratio-4x3 rounded-4 overflow-hidden shadow-sm">
               <img
                 src="img/grootse-markt-2025/1748943274377.jpeg"
-                class="w-100 h-100 gallery-img"
+                class="w-100 h-100 gallery-img enlargeable"
                 alt="Event connectivity setup"
                 data-i18n-alt="gallery.alt3"
                 loading="lazy"
@@ -681,7 +686,7 @@
             <div class="ratio ratio-4x3 rounded-4 overflow-hidden shadow-sm">
               <img
                 src="img/grootse-markt-2025/1748943404515.jpeg"
-                class="w-100 h-100 gallery-img"
+                class="w-100 h-100 gallery-img enlargeable"
                 alt="Live event WiFi coverage"
                 data-i18n-alt="gallery.alt4"
                 loading="lazy"
@@ -692,7 +697,7 @@
             <div class="ratio ratio-4x3 rounded-4 overflow-hidden shadow-sm">
               <img
                 src="img/20240508_193246-1536x2048.webp"
-                class="w-100 h-100 gallery-img"
+                class="w-100 h-100 gallery-img enlargeable"
                 alt="Outdoor access points"
                 data-i18n-alt="gallery.alt6"
                 loading="lazy"
@@ -703,7 +708,7 @@
             <div class="ratio ratio-4x3 rounded-4 overflow-hidden shadow-sm">
               <img
                 src="img/20240508_193251-1536x2048.webp"
-                class="w-100 h-100 gallery-img"
+                class="w-100 h-100 gallery-img enlargeable"
                 alt="Antenna setup on site"
                 data-i18n-alt="gallery.alt7"
                 loading="lazy"
@@ -714,7 +719,7 @@
             <div class="ratio ratio-4x3 rounded-4 overflow-hidden shadow-sm">
               <img
                 src="img/20240508_194215-1536x1152.webp"
-                class="w-100 h-100 gallery-img"
+                class="w-100 h-100 gallery-img enlargeable"
                 alt="Network cabinet on site"
                 data-i18n-alt="gallery.alt8"
                 loading="lazy"
@@ -725,7 +730,7 @@
             <div class="ratio ratio-4x3 rounded-4 overflow-hidden shadow-sm">
               <img
                 src="img/20240508_204101-1536x2048.webp"
-                class="w-100 h-100 gallery-img"
+                class="w-100 h-100 gallery-img enlargeable"
                 alt="WiFi testing on site"
                 data-i18n-alt="gallery.alt9"
                 loading="lazy"
@@ -736,7 +741,7 @@
             <div class="ratio ratio-16x9 rounded-4 overflow-hidden shadow-sm">
               <img
                 src="img/grootse-markt-2025/1748943441915.jpeg"
-                class="w-100 h-100 gallery-img"
+                class="w-100 h-100 gallery-img enlargeable"
                 alt="Event operations team"
                 data-i18n-alt="gallery.alt5"
                 loading="lazy"
@@ -1842,7 +1847,7 @@
           const ratio = document.createElement("div");
           ratio.className = "ratio ratio-16x9";
           const img = document.createElement("img");
-          img.className = "w-100 h-100 blog-card__cover";
+          img.className = "w-100 h-100 blog-card__cover enlargeable";
           img.src = post.cover;
           img.alt = post.title || "";
           img.loading = "lazy";
@@ -2008,6 +2013,25 @@
       }
 
       loadLocalBlogPosts();
+
+      document.addEventListener('click', function(e) {
+        if (e.target.classList.contains('enlargeable')) {
+          const src = e.target.src;
+          document.getElementById('modalImage').src = src;
+          const modal = new bootstrap.Modal(document.getElementById('imageModal'));
+          modal.show();
+        }
+      });
     </script>
+
+    <div class="modal fade" id="imageModal" tabindex="-1" aria-labelledby="imageModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+          <div class="modal-body p-0">
+            <img id="modalImage" class="w-100" alt="Enlarged image">
+          </div>
+        </div>
+      </div>
+    </div>
   </body>
 </html>
