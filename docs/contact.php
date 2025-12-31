@@ -10,6 +10,25 @@ function env_value(string $key, ?string $default = null): ?string
     return $value;
 }
 
+function wants_json(): bool
+{
+    $accept = (string) ($_SERVER['HTTP_ACCEPT'] ?? '');
+    $requestedWith = strtolower((string) ($_SERVER['HTTP_X_REQUESTED_WITH'] ?? ''));
+    return str_contains($accept, 'application/json') || $requestedWith === 'fetch' || $requestedWith === 'xmlhttprequest';
+}
+
+function send_json(int $status, bool $ok, string $message, ?string $error = null): void
+{
+    http_response_code($status);
+    header('Content-Type: application/json; charset=UTF-8');
+    $payload = ['ok' => $ok, 'message' => $message];
+    if ($error !== null) {
+        $payload['error'] = $error;
+    }
+    echo json_encode($payload);
+    exit;
+}
+
 function sanitize_single_line(string $value): string
 {
     $value = trim($value);
@@ -159,6 +178,9 @@ function smtp_send(
 }
 
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+    if (wants_json()) {
+        send_json(405, false, 'Method not allowed.');
+    }
     http_response_code(405);
     header('Content-Type: text/plain; charset=UTF-8');
     echo 'Method not allowed.';
@@ -167,6 +189,9 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
 
 $honeypot = trim((string) ($_POST['website'] ?? ''));
 if ($honeypot !== '') {
+    if (wants_json()) {
+        send_json(400, false, 'Invalid submission.');
+    }
     http_response_code(400);
     header('Content-Type: text/plain; charset=UTF-8');
     echo 'Invalid submission.';
@@ -181,6 +206,9 @@ $location = trim((string) ($_POST['location'] ?? ''));
 $notes = trim((string) ($_POST['notes'] ?? ''));
 
 if ($fullName === '' && $company === '' && $eventDate === '' && $attendees === '' && $location === '' && $notes === '') {
+    if (wants_json()) {
+        send_json(400, false, 'Please fill in the form.');
+    }
     http_response_code(400);
     header('Content-Type: text/plain; charset=UTF-8');
     echo 'Please fill in the form.';
@@ -221,6 +249,9 @@ $to = 'contact@pilowifi.net';
 [$ok, $error] = smtp_send($host, $port, $user ?? '', $pass ?? '', $from ?? 'system@pilowifi.net', $to, $subject, $body, $useTls);
 
 if (!$ok) {
+    if (wants_json()) {
+        send_json(500, false, 'Email sending failed.', $error);
+    }
     http_response_code(500);
     header('Content-Type: text/plain; charset=UTF-8');
     echo 'Email sending failed. ' . $error;
@@ -230,6 +261,10 @@ if (!$ok) {
 $lang = sanitize_single_line((string) ($_POST['lang'] ?? ''));
 if (!in_array($lang, ['nl', 'en', 'de'], true)) {
     $lang = 'nl';
+}
+
+if (wants_json()) {
+    send_json(200, true, 'Message sent.');
 }
 
 header('Location: index.html?lang=' . $lang . '#contact');

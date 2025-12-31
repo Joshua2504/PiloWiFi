@@ -581,7 +581,7 @@
             </div>
           </div>
           <div class="col-lg-7">
-            <form class="row g-3" action="contact.php" method="post" accept-charset="UTF-8">
+            <form class="row g-3" action="contact.php" method="post" accept-charset="UTF-8" data-contact-form>
               <input type="hidden" name="lang" value="" data-lang-field />
               <div class="col-md-6">
                 <label class="form-label" data-i18n="contact.form.nameLabel">Volledige naam</label>
@@ -610,6 +610,9 @@
               <div class="col-12 d-none">
                 <label class="form-label" for="website-field">Website</label>
                 <input type="text" class="form-control" id="website-field" name="website" autocomplete="off" />
+              </div>
+              <div class="col-12">
+                <div class="alert d-none mb-0" role="status" aria-live="polite" data-contact-status></div>
               </div>
               <div class="col-12">
                 <button class="btn btn-dark btn-lg" type="submit" data-i18n="contact.form.submit">Verstuur aanvraag</button>
@@ -758,6 +761,9 @@
           "contact.form.locationLabel": "Locatie",
           "contact.form.notesLabel": "Opmerkingen",
           "contact.form.submit": "Verstuur aanvraag",
+          "contact.form.sending": "Versturen...",
+          "contact.form.success": "Bedankt! Je aanvraag is verzonden.",
+          "contact.form.error": "Sorry, het verzenden is mislukt. Probeer het later opnieuw.",
           "contact.form.namePlaceholder": "Alex Morgan",
           "contact.form.companyPlaceholder": "Eventbedrijf",
           "contact.form.attendeesPlaceholder": "300",
@@ -883,6 +889,9 @@
           "contact.form.locationLabel": "Venue location",
           "contact.form.notesLabel": "Notes",
           "contact.form.submit": "Send request",
+          "contact.form.sending": "Sending...",
+          "contact.form.success": "Thanks! Your request has been sent.",
+          "contact.form.error": "Sorry, sending failed. Please try again later.",
           "contact.form.namePlaceholder": "Alex Morgan",
           "contact.form.companyPlaceholder": "Event Co.",
           "contact.form.attendeesPlaceholder": "300",
@@ -1008,6 +1017,9 @@
           "contact.form.locationLabel": "Veranstaltungsort",
           "contact.form.notesLabel": "Notizen",
           "contact.form.submit": "Anfrage senden",
+          "contact.form.sending": "Wird gesendet...",
+          "contact.form.success": "Danke! Ihre Anfrage wurde gesendet.",
+          "contact.form.error": "Senden fehlgeschlagen. Bitte später erneut versuchen.",
           "contact.form.namePlaceholder": "Alex Morgan",
           "contact.form.companyPlaceholder": "Eventfirma",
           "contact.form.attendeesPlaceholder": "300",
@@ -1025,6 +1037,9 @@
       const textNodes = document.querySelectorAll("[data-i18n]");
       const placeholderNodes = document.querySelectorAll("[data-i18n-placeholder]");
       const languageButtons = document.querySelectorAll("[data-lang]");
+      const contactForm = document.querySelector("[data-contact-form]");
+      const contactStatus = document.querySelector("[data-contact-status]");
+      let currentLang = "nl";
       const langField = document.querySelector("[data-lang-field]");
 
       function setLanguage(lang, options = {}) {
@@ -1039,6 +1054,7 @@
         if (langField) {
           langField.value = lang;
         }
+        currentLang = lang;
 
         const description = document.querySelector('meta[name="description"]');
         if (description) {
@@ -1116,6 +1132,71 @@
           setLanguage(button.dataset.lang);
         });
       });
+
+      function getTranslation(lang, key, fallback) {
+        const dict = translations[lang];
+        if (dict && dict[key]) {
+          return dict[key];
+        }
+        return fallback;
+      }
+
+      function setContactStatus(message, style) {
+        if (!contactStatus) {
+          return;
+        }
+        contactStatus.textContent = message;
+        contactStatus.classList.remove("d-none", "alert-success", "alert-danger", "alert-info");
+        if (style === "success") {
+          contactStatus.classList.add("alert", "alert-success");
+        } else if (style === "error") {
+          contactStatus.classList.add("alert", "alert-danger");
+        } else {
+          contactStatus.classList.add("alert", "alert-info");
+        }
+      }
+
+      if (contactForm) {
+        contactForm.addEventListener("submit", async (event) => {
+          event.preventDefault();
+          setContactStatus(getTranslation(currentLang, "contact.form.sending", "Sending..."), "info");
+
+          try {
+            const response = await fetch(contactForm.action, {
+              method: "POST",
+              headers: {
+                "Accept": "application/json",
+                "X-Requested-With": "fetch"
+              },
+              body: new FormData(contactForm)
+            });
+
+            let data = null;
+            try {
+              data = await response.json();
+            } catch (error) {
+              data = null;
+            }
+
+            if (!response.ok || !data || !data.ok) {
+              if (data && data.error) {
+                console.error("Contact form error:", data.error);
+              }
+              setContactStatus(getTranslation(currentLang, "contact.form.error", "Sending failed."), "error");
+              return;
+            }
+
+            setContactStatus(getTranslation(currentLang, "contact.form.success", "Message sent."), "success");
+            contactForm.reset();
+            if (langField) {
+              langField.value = currentLang;
+            }
+          } catch (error) {
+            console.error("Contact form error:", error);
+            setContactStatus(getTranslation(currentLang, "contact.form.error", "Sending failed."), "error");
+          }
+        });
+      }
     </script>
   </body>
 </html>
