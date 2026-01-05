@@ -209,10 +209,6 @@ if ($honeypot !== '') {
 
 $fullName = trim((string) ($_POST['full_name'] ?? ''));
 $email = trim((string) ($_POST['email'] ?? ''));
-$company = trim((string) ($_POST['company'] ?? ''));
-$eventDate = trim((string) ($_POST['event_date'] ?? ''));
-$attendees = trim((string) ($_POST['attendees'] ?? ''));
-$location = trim((string) ($_POST['location'] ?? ''));
 $notes = trim((string) ($_POST['notes'] ?? ''));
 
 if ($email === '') {
@@ -235,20 +231,23 @@ if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
     exit;
 }
 
-if ($fullName === '' && $company === '' && $eventDate === '' && $attendees === '' && $location === '' && $notes === '') {
+if ($notes === '') {
     if (wants_json()) {
-        send_json(400, false, 'Please fill in the form.', null, $smtpDebug);
+        send_json(400, false, 'Please enter a message.', null, $smtpDebug);
     }
     http_response_code(400);
     header('Content-Type: text/plain; charset=UTF-8');
-    echo 'Please fill in the form.';
+    echo 'Please enter a message.';
     exit;
 }
 
 $subjectName = sanitize_single_line($fullName);
+$subjectEmail = sanitize_single_line($email);
 $subject = 'JarnoWiFi contact request';
 if ($subjectName !== '') {
     $subject .= ' - ' . $subjectName;
+} elseif ($subjectEmail !== '') {
+    $subject .= ' - ' . $subjectEmail;
 }
 
 $bodyLines = [
@@ -256,11 +255,7 @@ $bodyLines = [
     '',
     'Name: ' . value_or_na($fullName),
     'Email: ' . value_or_na($email),
-    'Company: ' . value_or_na($company),
-    'Event date: ' . value_or_na($eventDate),
-    'Estimated attendees: ' . value_or_na($attendees),
-    'Location: ' . value_or_na($location),
-    'Notes: ' . value_or_na($notes),
+    'Message: ' . value_or_na($notes),
     '',
     'Submitted: ' . date('c'),
     'IP: ' . ($_SERVER['REMOTE_ADDR'] ?? 'unknown'),
