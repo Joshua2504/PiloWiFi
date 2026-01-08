@@ -242,6 +242,21 @@
         border: 1px solid rgba(15, 23, 42, 0.12);
       }
 
+      .service-thumbs {
+        display: flex;
+        gap: 0.6rem;
+        flex-wrap: wrap;
+      }
+
+      .service-thumb {
+        width: 64px;
+        height: 48px;
+        border-radius: 0.6rem;
+        object-fit: cover;
+        border: 1px solid rgba(15, 23, 42, 0.12);
+        cursor: zoom-in;
+      }
+
       .reliability {
         background: linear-gradient(120deg, #0b1a2a 0%, #123147 50%, #154c5f 100%);
         color: #ffffff;
@@ -486,6 +501,11 @@
               <div class="card-body">
                 <h5 class="fw-semibold" data-i18n="services.card1.title">Event-wifi</h5>
                 <p class="text-muted" data-i18n="services.card1.body">Premium gastnetwerken met captive portals, bandbreedtebeheer en live monitoring.</p>
+                <div class="service-thumbs mt-3" aria-label="Example photos">
+                  <img src="img/20240508_193246-1536x2048.webp" class="service-thumb enlargeable" alt="Example event WiFi" loading="lazy" />
+                  <img src="img/20240508_193251-1536x2048.webp" class="service-thumb enlargeable" alt="Example guest network" loading="lazy" />
+                  <img src="img/20240508_194215-1536x1152.webp" class="service-thumb enlargeable" alt="Example access point" loading="lazy" />
+                </div>
               </div>
             </div>
           </div>
@@ -494,6 +514,11 @@
               <div class="card-body">
                 <h5 class="fw-semibold" data-i18n="services.card2.title">Productienetwerken</h5>
                 <p class="text-muted" data-i18n="services.card2.body">Aparte VLANs voor leveranciers, ticketing, cashless, livestreams en pers.</p>
+                <div class="service-thumbs mt-3" aria-label="Example photos">
+                  <img src="img/20240508_194215-1536x1152.webp" class="service-thumb enlargeable" alt="Example production network" loading="lazy" />
+                  <img src="img/20240508_204101-1536x2048.webp" class="service-thumb enlargeable" alt="Example network hardware" loading="lazy" />
+                  <img src="img/20240508_193246-1536x2048.webp" class="service-thumb enlargeable" alt="Example uplink" loading="lazy" />
+                </div>
               </div>
             </div>
           </div>
@@ -502,6 +527,11 @@
               <div class="card-body">
                 <h5 class="fw-semibold" data-i18n="services.card3.title">Snelle uitrol</h5>
                 <p class="text-muted" data-i18n="services.card3.body">Modulaire kits met snel op te bouwen masten en redundante stroomvoorziening voor afgelegen locaties.</p>
+                <div class="service-thumbs mt-3" aria-label="Example photos">
+                  <img src="img/20240508_204101-1536x2048.webp" class="service-thumb enlargeable" alt="Example rapid deployment" loading="lazy" />
+                  <img src="img/20240508_193251-1536x2048.webp" class="service-thumb enlargeable" alt="Example site build" loading="lazy" />
+                  <img src="img/20240508_194215-1536x1152.webp" class="service-thumb enlargeable" alt="Example outdoor setup" loading="lazy" />
+                </div>
               </div>
             </div>
           </div>
@@ -510,6 +540,11 @@
               <div class="card-body">
                 <h5 class="fw-semibold" data-i18n="services.card4.title">24/7 NOC</h5>
                 <p class="text-muted" data-i18n="services.card4.body">Realtime telemetry, automatische failover en engineers on-call tijdens je event.</p>
+                <div class="service-thumbs mt-3" aria-label="Example photos">
+                  <img src="img/20240508_194215-1536x1152.webp" class="service-thumb enlargeable" alt="Example monitoring" loading="lazy" />
+                  <img src="img/20240508_193246-1536x2048.webp" class="service-thumb enlargeable" alt="Example on-site ops" loading="lazy" />
+                  <img src="img/20240508_204101-1536x2048.webp" class="service-thumb enlargeable" alt="Example support" loading="lazy" />
+                </div>
               </div>
             </div>
           </div>
