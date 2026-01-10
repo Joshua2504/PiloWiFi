@@ -68,7 +68,8 @@
       .hero-video__content {
         position: relative;
         z-index: 1;
-        padding: 3.5rem 0;
+        padding-top: 3.5rem;
+        padding-bottom: 3.5rem;
         color: #ffffff;
       }
 
@@ -82,7 +83,8 @@
         }
 
         .hero-video__content {
-          padding: 2.5rem 0;
+          padding-top: 2.5rem;
+          padding-bottom: 2.5rem;
         }
       }
     </style>
@@ -127,13 +129,17 @@
     </nav>
 
     <main class="page-shell">
-      <section class="hero-video mb-5">
-        <div class="hero-video__overlay"></div>
-        <div class="container hero-video__content">
-          <div class="row justify-content-center">
-            <div class="col-lg-8">
-              <p class="section-label mb-2" data-i18n="impressum.label">Impressum</p>
-              <h1 class="fw-bold mb-3" data-i18n="impressum.title">Impressum</h1>
+      <section class="mb-5">
+        <div class="container">
+          <div class="hero-video">
+            <div class="hero-video__overlay"></div>
+            <div class="container hero-video__content">
+              <div class="row justify-content-center mx-0">
+                <div class="col-lg-8">
+                  <p class="section-label mb-2" data-i18n="impressum.label">Impressum</p>
+                  <h1 class="fw-bold mb-3" data-i18n="impressum.title">Impressum</h1>
+                </div>
+              </div>
             </div>
           </div>
         </div>
