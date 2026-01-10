@@ -26,10 +26,31 @@
       </ul>
       <div class="d-flex flex-column flex-lg-row align-items-lg-center gap-2 ms-lg-3 mt-3 mt-lg-0">
         <a class="btn btn-sm btn-dark" href="/#contact" data-i18n="nav.cta">Request a quote</a>
-        <div class="d-flex gap-2">
-          <a class="btn btn-sm btn-outline-dark" href="/?lang=nl" data-lang="nl">NL</a>
-          <a class="btn btn-sm btn-outline-dark" href="/?lang=en" data-lang="en">EN</a>
-          <a class="btn btn-sm btn-outline-dark" href="/?lang=de" data-lang="de">DE</a>
+        <div class="dropdown">
+          <button class="btn btn-sm btn-outline-dark dropdown-toggle d-flex align-items-center gap-2" type="button" id="languageDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+            <span class="flag-icon" id="currentFlag">🇳🇱</span>
+            <span id="currentLang">NL</span>
+          </button>
+          <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="languageDropdown">
+            <li>
+              <a class="dropdown-item d-flex align-items-center gap-2" href="/?lang=nl" data-lang="nl">
+                <span class="flag-icon">🇳🇱</span>
+                <span>Nederlands</span>
+              </a>
+            </li>
+            <li>
+              <a class="dropdown-item d-flex align-items-center gap-2" href="/?lang=en" data-lang="en">
+                <span class="flag-icon">🇬🇧</span>
+                <span>English</span>
+              </a>
+            </li>
+            <li>
+              <a class="dropdown-item d-flex align-items-center gap-2" href="/?lang=de" data-lang="de">
+                <span class="flag-icon">🇩🇪</span>
+                <span>Deutsch</span>
+              </a>
+            </li>
+          </ul>
         </div>
       </div>
     </div>
