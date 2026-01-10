@@ -513,8 +513,8 @@
                   <img
                     src="/img/people/jarno.jpeg"
                     alt="Jarno Sulmann"
-                    class="rounded-circle flex-shrink-0"
-                    style="width: 80px; height: 80px; object-fit: cover"
+                    class="rounded-circle flex-shrink-0 enlargeable"
+                    style="width: 80px; height: 80px; object-fit: cover; cursor: zoom-in"
                     loading="lazy"
                     decoding="async"
                   />
@@ -534,8 +534,8 @@
                   <img
                     src="/img/people/joshua.jpeg"
                     alt="Joshua Treudler"
-                    class="rounded-circle flex-shrink-0"
-                    style="width: 80px; height: 80px; object-fit: cover"
+                    class="rounded-circle flex-shrink-0 enlargeable"
+                    style="width: 80px; height: 80px; object-fit: cover; cursor: zoom-in"
                     loading="lazy"
                     decoding="async"
                   />
@@ -984,8 +984,8 @@
           "blog.empty": "Nog geen posts.",
           "blog.localError": "Laden van posts is mislukt.",
           "team.label": "Team",
-          "team.title": "Mensen achter het netwerk.",
-          "team.lead": "Ervaren operators gericht op betrouwbare eventconnectiviteit.",
+          "team.title": "De mensen achter je netwerk.",
+          "team.lead": "Ervaren operators die je eventconnectiviteit stabiel houden — op locatie en onder druk.",
           "team.role1": "Operations & hardware on-site en in het veld.",
           "team.role2": "Operations en on-site operations.",
           "team.card3.name": "Jij?",
@@ -1188,8 +1188,8 @@
           "blog.empty": "No posts yet.",
           "blog.localError": "Unable to load posts right now.",
           "team.label": "Team",
-          "team.title": "People behind the network.",
-          "team.lead": "Experienced operators focused on reliable event connectivity.",
+          "team.title": "The people behind your network.",
+          "team.lead": "Experienced operators who keep event connectivity stable — on site and under pressure.",
           "team.role1": "Operations & hardware on-site and in the field.",
           "team.role2": "Operations and on-site operations.",
           "team.card3.name": "You?",
@@ -1392,8 +1392,8 @@
           "blog.empty": "Noch keine Beiträge.",
           "blog.localError": "Beiträge konnten nicht geladen werden.",
           "team.label": "Team",
-          "team.title": "Menschen hinter dem Netzwerk.",
-          "team.lead": "Erfahrene Operatoren für zuverlässige Event-Konnektivität.",
+          "team.title": "Menschen hinter Ihrem Netzwerk.",
+          "team.lead": "Erfahrene Operatoren, die Ihre Event-Konnektivität vor Ort stabil halten — auch unter Druck.",
           "team.role1": "Operations & Hardware on-site und im Feld.",
           "team.role2": "Operations und on-site operations.",
           "team.card3.name": "Du?",
@@ -1868,6 +1868,7 @@
         if (e.target.classList.contains('enlargeable')) {
           const src = e.target.src;
           document.getElementById('modalImage').src = src;
+          document.getElementById('modalImage').alt = e.target.alt || 'Enlarged image';
           const modal = new bootstrap.Modal(document.getElementById('imageModal'));
           modal.show();
         }
