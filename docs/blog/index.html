@@ -18,6 +18,7 @@
       crossorigin="anonymous"
     />
     <link href="/site.css" rel="stylesheet" />
+    <script src="/menu.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-D6BR389F7B"></script>
@@ -64,43 +65,7 @@
     </style>
   </head>
   <body>
-    <nav class="navbar navbar-expand-lg bg-white border-bottom fixed-top">
-      <div class="container">
-        <a class="navbar-brand fw-bold" href="/">
-          JarnoWiFi
-          <span class="badge-pill ms-2">Wifi solutions</span>
-        </a>
-        <button
-          class="navbar-toggler"
-          type="button"
-          data-bs-toggle="collapse"
-          data-bs-target="#piloNavbar"
-          aria-controls="piloNavbar"
-          aria-expanded="false"
-          aria-label="Toggle navigation"
-        >
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="piloNavbar">
-          <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-            <li class="nav-item"><a class="nav-link" href="/#services">Services</a></li>
-            <li class="nav-item"><a class="nav-link" href="/#reliability">Reliability</a></li>
-            <li class="nav-item"><a class="nav-link" href="/#use-cases">Use cases</a></li>
-            <li class="nav-item"><a class="nav-link" href="/#pricing">Plans</a></li>
-            <li class="nav-item"><a class="nav-link" href="/#blog">Blog</a></li>
-            <li class="nav-item"><a class="nav-link" href="/#faq">FAQ</a></li>
-          </ul>
-          <div class="d-flex flex-column flex-lg-row align-items-lg-center gap-2 ms-lg-3 mt-3 mt-lg-0">
-            <a class="btn btn-sm btn-dark" href="/#contact">Request a quote</a>
-            <div class="d-flex gap-2">
-              <a class="btn btn-sm btn-outline-dark" href="/?lang=nl">NL</a>
-              <a class="btn btn-sm btn-dark" href="/?lang=en">EN</a>
-              <a class="btn btn-sm btn-outline-dark" href="/?lang=de">DE</a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </nav>
+    <div data-include="header" data-active="blog"></div>
 
     <main class="page-shell">
       <div class="container">
@@ -148,7 +113,7 @@
           </div>
           <div class="col-md-6 text-md-end mt-3 mt-md-0">
             <a class="me-3" href="/#services">Services</a>
-            <a class="me-3" href="/#reliability">Reliability</a>
+            <a class="me-3" href="/reliability">Reliability</a>
             <a class="me-3" href="/#pricing">Plans</a>
             <a class="me-3" href="/jobs">Jobs</a>
             <a class="me-3" href="/imprint">Imprint</a>
@@ -159,6 +124,7 @@
     </footer>
 
     <script>
+      loadHeader({ active: "blog" }).then(() => {
       const homeLink = document.querySelector("[data-home-link]");
       const postStatus = document.querySelector("[data-post-status]");
       const postArticle = document.querySelector("[data-post-article]");
@@ -501,6 +467,7 @@
           const modal = new bootstrap.Modal(document.getElementById('imageModal'));
           modal.show();
         }
+      });
       });
     </script>
 

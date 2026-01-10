@@ -24,6 +24,7 @@
     />
 
     <link href="/site.css" rel="stylesheet" />
+    <script src="/menu.js"></script>
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-D6BR389F7B"></script>
     <script>
@@ -90,43 +91,7 @@
     </style>
   </head>
   <body>
-    <nav class="navbar navbar-expand-lg bg-white border-bottom fixed-top">
-      <div class="container">
-        <a class="navbar-brand fw-bold" href="/" data-home-link>
-          JarnoWiFi
-          <span class="badge-pill ms-2" data-i18n="nav.badge">Event-WLAN</span>
-        </a>
-        <button
-          class="navbar-toggler"
-          type="button"
-          data-bs-toggle="collapse"
-          data-bs-target="#piloNavbar"
-          aria-controls="piloNavbar"
-          aria-expanded="false"
-          aria-label="Toggle navigation"
-        >
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="piloNavbar">
-          <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-            <li class="nav-item"><a class="nav-link" href="/#services" data-i18n="nav.services">Leistungen</a></li>
-            <li class="nav-item"><a class="nav-link" href="/#reliability" data-i18n="nav.reliability">Zuverlässigkeit</a></li>
-            <li class="nav-item"><a class="nav-link" href="/#use-cases" data-i18n="nav.useCases">Einsatzbereiche</a></li>
-            <li class="nav-item"><a class="nav-link" href="/#pricing" data-i18n="nav.plans">Pakete</a></li>
-            <li class="nav-item"><a class="nav-link" href="/#blog" data-i18n="nav.blog">Blog</a></li>
-            <li class="nav-item"><a class="nav-link" href="/#faq" data-i18n="nav.faq">FAQ</a></li>
-          </ul>
-          <div class="d-flex flex-column flex-lg-row align-items-lg-center gap-2 ms-lg-3 mt-3 mt-lg-0">
-            <a class="btn btn-sm btn-dark" href="/#contact" data-i18n="nav.cta">Angebot anfragen</a>
-            <div class="d-flex gap-2">
-              <a class="btn btn-sm btn-outline-dark" href="?lang=nl" data-lang="nl">NL</a>
-              <a class="btn btn-sm btn-outline-dark" href="?lang=en" data-lang="en">EN</a>
-              <a class="btn btn-sm btn-dark" href="?lang=de" data-lang="de">DE</a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </nav>
+    <div data-include="header" data-active="imprint"></div>
 
     <main class="page-shell">
       <section class="mb-5">
@@ -211,7 +176,7 @@
           </div>
           <div class="col-md-6 text-md-end mt-3 mt-md-0">
             <a class="me-3" href="/#services" data-i18n="footer.services">Leistungen</a>
-            <a class="me-3" href="/#reliability" data-i18n="footer.reliability">Zuverlässigkeit</a>
+            <a class="me-3" href="/reliability" data-i18n="footer.reliability">Zuverlässigkeit</a>
             <a class="me-3" href="/#pricing" data-i18n="footer.plans">Pakete</a>
             <a class="me-3" href="/jobs" data-i18n="footer.jobs">Jobs</a>
             <a class="me-3" href="/imprint" data-i18n="footer.impressum">Impressum</a>
@@ -239,6 +204,7 @@
           "nav.services": "Diensten",
           "nav.reliability": "Betrouwbaarheid",
           "nav.useCases": "Toepassingen",
+          "nav.video": "Camerabewaking",
           "nav.plans": "Pakketten",
           "nav.blog": "Blog",
           "nav.faq": "FAQ",
@@ -286,6 +252,7 @@
           "nav.services": "Services",
           "nav.reliability": "Reliability",
           "nav.useCases": "Use cases",
+          "nav.video": "Video",
           "nav.plans": "Plans",
           "nav.blog": "Blog",
           "nav.faq": "FAQ",
@@ -333,6 +300,7 @@
           "nav.services": "Leistungen",
           "nav.reliability": "Zuverlässigkeit",
           "nav.useCases": "Einsatzbereiche",
+          "nav.video": "Videoüberwachung",
           "nav.plans": "Pakete",
           "nav.blog": "Blog",
           "nav.faq": "FAQ",
@@ -372,6 +340,7 @@
         }
       };
 
+      loadHeader({ active: "imprint" }).then(() => {
       const textNodes = document.querySelectorAll("[data-i18n]");
       const languageButtons = document.querySelectorAll("[data-lang]");
       const homeLink = document.querySelector("[data-home-link]");
@@ -455,6 +424,7 @@
           event.preventDefault();
           setLanguage(button.dataset.lang);
         });
+      });
       });
     </script>
   </body>
