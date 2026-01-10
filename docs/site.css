@@ -47,7 +47,11 @@ body {
   color: var(--ink);
   background: radial-gradient(circle at top, #f7f3ea 0%, #eef3f7 45%, #ffffff 75%);
   line-height: 1.6;
-  scroll-behavior: smooth;
+}
+
+/* Avoid Bootstrap collapse slide animation in the header menu only. */
+.navbar .collapsing {
+  transition: none !important;
 }
 
 h1,
@@ -71,6 +75,23 @@ section {
   background-color: rgba(255, 255, 255, 0.94) !important;
   backdrop-filter: blur(12px);
   box-shadow: 0 12px 30px rgba(17, 24, 39, 0.08);
+}
+
+/* Prevent mobile tap-highlight and click-focus flashes in the header menu. */
+.navbar a,
+.navbar button {
+  -webkit-tap-highlight-color: transparent;
+}
+
+.navbar a:focus:not(:focus-visible),
+.navbar button:focus:not(:focus-visible) {
+  outline: none;
+  box-shadow: none;
+}
+
+.navbar .nav-link:active,
+.navbar .nav-link:focus {
+  background-color: transparent;
 }
 
 .hero {
