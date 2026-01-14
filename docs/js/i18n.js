@@ -48,15 +48,6 @@ export class I18nManager {
   }
 
   /**
-   * Get language from URL query parameter (deprecated, kept for backward compatibility)
-   */
-  getLanguageFromQuery() {
-    const params = new URLSearchParams(window.location.search);
-    const lang = params.get('lang');
-    return this.normalizeLang(lang);
-  }
-
-  /**
    * Get language from browser navigator
    */
   getLanguageFromNavigator() {
