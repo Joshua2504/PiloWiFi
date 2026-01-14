@@ -1,64 +1,48 @@
+<?php
+// Detect language from URL path for server-side rendering
+$path = $_SERVER['REQUEST_URI'];
+preg_match('#^/([a-z]{2})(?:/|$)#', $path, $matches);
+$currentLang = isset($matches[1]) && in_array($matches[1], ['nl', 'en', 'de']) ? $matches[1] : 'nl';
+
+// Load translations for server-side rendering
+$translationsFile = __DIR__ . '/../locales/translations.json';
+$translations = [];
+if (file_exists($translationsFile)) {
+  $translationsData = json_decode(file_get_contents($translationsFile), true);
+  $translations = $translationsData[$currentLang] ?? [];
+}
+
+// Helper function to get translation
+function t($key, $fallback = '') {
+  global $translations;
+  if (isset($translations[$key])) {
+    return $translations[$key];
+  }
+  // Handle nested keys like meta.title
+  $keys = explode('.', $key);
+  $value = $translations;
+  foreach ($keys as $k) {
+    if (isset($value[$k])) {
+      $value = $value[$k];
+    } else {
+      return $fallback ?: $key;
+    }
+  }
+  return is_string($value) ? $value : ($fallback ?: $key);
+}
+?>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-<!-- Language detection via cookie and localStorage -->
+<!-- Set language in localStorage on page load -->
 <script>
-  (function() {
-    // Get language: from cookie, then localStorage, then browser, then default
-    function getLanguage() {
-      // Check cookie first
-      const cookies = document.cookie.split(';');
-      for (let cookie of cookies) {
-        const [name, value] = cookie.trim().split('=');
-        if (name === 'preferredLanguage') {
-          return decodeURIComponent(value);
-        }
-      }
-      
-      // Check localStorage
-      const stored = localStorage.getItem('preferredLanguage');
-      if (stored) return stored;
-      
-      // Check browser language
-      const browserLang = navigator.language.toLowerCase().split('-')[0];
-      if (['nl', 'en', 'de'].includes(browserLang)) {
-        return browserLang;
-      }
-      
-      return 'nl';
-    }
-
-    const path = window.location.pathname;
-    const pathMatch = path.match(/^\/(en|de|nl)(\/|$)/);
-    const currentLang = pathMatch ? pathMatch[1] : null;
-    
-    // If already on a language path, save it and continue
-    if (currentLang) {
-      localStorage.setItem('preferredLanguage', currentLang);
-      document.cookie = `preferredLanguage=${currentLang};path=/;max-age=31536000;SameSite=Lax`;
-    } else {
-      // Not on language path - detect preferred language and redirect
-      const detectedLang = getLanguage();
-      
-      // Save the preference
-      localStorage.setItem('preferredLanguage', detectedLang);
-      document.cookie = `preferredLanguage=${detectedLang};path=/;max-age=31536000;SameSite=Lax`;
-      
-      if (path === '/') {
-        // Root path - go to language-prefixed home
-        window.location.pathname = '/' + detectedLang + '/';
-      } else {
-        // Non-language-prefixed page like /jobs - add language prefix
-        window.location.pathname = '/' + detectedLang + path;
-      }
-    }
-  })();
+  localStorage.setItem('preferredLanguage', '<?= $currentLang ?>');
+  document.cookie = 'preferredLanguage=<?= $currentLang ?>;path=/;max-age=31536000;SameSite=Lax';
 </script>
 
 <!-- SEO Meta Tags -->
-<meta name="description" content="JarnoWiFi levert professionele wifi voor markten, kampen en festivals met Starlink en 5G-back-up." />
+<meta name="description" content="<?= htmlspecialchars(t('meta.description', 'JarnoWiFi levert professionele wifi voor markten, kampen en festivals met Starlink en 5G-back-up.')) ?>" />
 <?php
-  $path = $_SERVER['REQUEST_URI'];
   $baseUrl = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://$_SERVER[HTTP_HOST]";
   
   // Extract current page without language prefix
