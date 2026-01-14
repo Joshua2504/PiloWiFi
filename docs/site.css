@@ -602,3 +602,111 @@ section {
   display: inline-flex;
   justify-content: center;
 }
+/* Page Shell - Common page wrapper */
+.page-shell {
+  padding-top: 6.5rem;
+  padding-bottom: 4rem;
+}
+
+/* Hero Video - Subpage header */
+.hero-video {
+  position: relative;
+  min-height: 280px;
+  border-radius: 1.5rem;
+  overflow: hidden;
+  background: linear-gradient(135deg, rgba(11, 26, 42, 0.92), rgba(18, 49, 71, 0.82)), url('/img/background-video-1-webbg-20fps-420p.mp4') center/cover no-repeat;
+  box-shadow: 0 24px 36px rgba(15, 23, 42, 0.16);
+}
+
+.hero-video__overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(11, 26, 42, 0.2) 0%, rgba(11, 26, 42, 0.82) 75%);
+}
+
+.hero-video__content {
+  position: relative;
+  z-index: 1;
+  padding-top: 3.5rem;
+  padding-bottom: 3.5rem;
+  color: #ffffff;
+}
+
+.hero-video .section-label {
+  color: var(--teal);
+  text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+}
+
+/* Info Card */
+.info-card {
+  border-radius: 1.2rem;
+  border: 1px solid var(--mist);
+  box-shadow: 0 18px 30px rgba(15, 23, 42, 0.08);
+}
+
+/* Job Card */
+.job-card {
+  border-radius: 1.2rem;
+  border: 1px solid rgba(15, 23, 42, 0.08);
+  box-shadow: 0 18px 30px rgba(15, 23, 42, 0.08);
+}
+
+/* Pills */
+.pill, .tag-pill {
+  background: rgba(27, 142, 166, 0.12);
+  color: var(--teal);
+  border-radius: 999px;
+  padding: 0.25rem 0.75rem;
+  font-weight: 600;
+  font-size: 0.85rem;
+}
+
+.metric-pill {
+  background: rgba(14, 165, 233, 0.1);
+  color: var(--teal);
+  border-radius: 999px;
+  padding: 0.5rem 1rem;
+  font-weight: 600;
+  font-size: 0.9rem;
+  border: 1px solid rgba(14, 165, 233, 0.2);
+}
+
+/* Pillar Card */
+.pillar-card {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(14, 165, 233, 0.2);
+  border-radius: 1.2rem;
+  padding: 2rem;
+  transition: all 0.3s ease;
+}
+
+.pillar-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 20px 25px -5px rgba(14, 165, 233, 0.2);
+  border-color: var(--teal);
+}
+
+/* Blog Card Cover */
+.blog-card__cover {
+  border-top-left-radius: 1.5rem;
+  border-top-right-radius: 1.5rem;
+  object-fit: cover;
+}
+
+/* Blog Meta */
+.blog-meta {
+  font-size: 0.85rem;
+  color: var(--teal);
+  font-weight: 500;
+}
+
+@media (max-width: 768px) {
+  .hero-video {
+    min-height: 220px;
+  }
+
+  .hero-video__content {
+    padding-top: 2.5rem;
+    padding-bottom: 2.5rem;
+  }
+}

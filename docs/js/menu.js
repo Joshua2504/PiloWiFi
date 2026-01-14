@@ -27,7 +27,6 @@ function setCurrentLanguage(placeholder) {
   const flagElement = document.querySelector("#currentFlag");
   const langElement = document.querySelector("#currentLang");
   const langDropdown = document.querySelector('#languageDropdown');
-  const langLinks = document.querySelectorAll('[data-lang]');
 
   // Update the dropdown to reflect the current language
   if (langDropdown) {
@@ -37,33 +36,13 @@ function setCurrentLanguage(placeholder) {
     if (!langDropdown.dataset.listenerAttached) {
       langDropdown.addEventListener('change', function(e) {
         const selectedLang = this.value;
-        // Save language preference to localStorage
-        localStorage.setItem('preferredLanguage', selectedLang);
-        // Get current path and replace language prefix
-        let path = window.location.pathname;
-        path = path.replace(/^\/[a-z]{2}(?:\/|$)/, '/');
-        // Navigate to same page in selected language
-        window.location.pathname = `/${selectedLang}${path === '/' ? '/' : path}`;
+        const url = new URL(window.location);
+        url.searchParams.set('lang', selectedLang);
+        window.location.href = url;
       });
       langDropdown.dataset.listenerAttached = 'true';
     }
   }
-
-  // Update language dropdown links to preserve current path with language prefix
-  langLinks.forEach(link => {
-    const lang = link.getAttribute('data-lang');
-    const path = window.location.pathname;
-    
-    // Remove existing language prefix if present
-    let newPath = path.replace(/^\/[a-z]{2}(?:\/|$)/, '/');
-    if (newPath === path) {
-      newPath = path === '/' ? '/' : path;
-    }
-    
-    // Add new language prefix
-    const finalPath = `/${lang}${newPath === '/' ? '/' : newPath}`;
-    link.href = finalPath;
-  });
 
   // Update flag and language text display
   if (flagElement) {
@@ -119,22 +98,6 @@ async function loadHeader(options = {}) {
       }
     });
     
-    // Update internal navigation links to include language prefix
-    const navLinks = placeholder.querySelectorAll('a[href^="/"]');
-    navLinks.forEach(link => {
-      const href = link.getAttribute('href');
-      // Skip language dropdown links
-      if (href.includes('?lang=') || link.hasAttribute('data-lang')) {
-        return;
-      }
-      // Add language prefix if not already there
-      if (!href.match(/^\/(en|de|nl)(\/|#|$)/)) {
-        const newHref = href === '/' ? `/${currentLang}/` : `/${currentLang}${href}`;
-        link.href = newHref;
-        console.log('[menu.js] Updated link:', href, '=>', newHref);
-      }
-    });
-    
     document.dispatchEvent(new CustomEvent("header:loaded", { detail: { active: activeKey } }));
     return placeholder;
   } catch (error) {
@@ -178,22 +141,6 @@ async function loadFooter() {
         console.log('[menu.js] Translated footer:', key, '=>', translation);
       } else {
         console.warn('[menu.js] Missing footer translation for:', key);
-      }
-    });
-    
-    // Update internal navigation links in footer to include language prefix
-    const footerLinks = placeholder.querySelectorAll('a[href^="/"]');
-    footerLinks.forEach(link => {
-      const href = link.getAttribute('href');
-      // Skip hash links
-      if (href.startsWith('/#')) {
-        return;
-      }
-      // Add language prefix if not already there
-      if (!href.match(/^\/(en|de|nl)(\/|#|$)/)) {
-        const newHref = href === '/' ? `/${currentLang}/` : `/${currentLang}${href}`;
-        link.href = newHref;
-        console.log('[menu.js] Updated footer link:', href, '=>', newHref);
       }
     });
     

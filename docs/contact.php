@@ -1,6 +1,10 @@
 <?php
 declare(strict_types=1);
 
+// ========================================
+// Helper Functions
+// ========================================
+
 function env_value(string $key, ?string $default = null): ?string
 {
     $value = getenv($key);
@@ -32,6 +36,24 @@ function send_json(int $status, bool $ok, string $message, ?string $error = null
     exit;
 }
 
+function respond(int $code, bool $ok, string $message, ?string $error = null, array $extra = []): void
+{
+    if (wants_json()) {
+        send_json($code, $ok, $message, $error, $extra);
+    }
+    http_response_code($code);
+    header('Content-Type: text/plain; charset=UTF-8');
+    echo $message;
+    exit;
+}
+
+function validate_field(string $value, string $message, array $extra = []): void
+{
+    if ($value === '') {
+        respond(400, false, $message, null, $extra);
+    }
+}
+
 function sanitize_single_line(string $value): string
 {
     $value = trim($value);
@@ -44,6 +66,7 @@ function value_or_na(string $value): string
 }
 
 function smtp_expect($socket, int $code)
+
 {
     $response = '';
     while (($line = fgets($socket, 515)) !== false) {
@@ -180,6 +203,10 @@ function smtp_send(
     return [true, ''];
 }
 
+// ========================================
+// Main Request Handler
+// ========================================
+
 $smtpPass = env_value('SMTP_PASS', '');
 $smtpDebug = [
     'smtp_pass_set' => $smtpPass !== '',
@@ -187,59 +214,25 @@ $smtpDebug = [
 ];
 
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-    if (wants_json()) {
-        send_json(405, false, 'Method not allowed.', null, $smtpDebug);
-    }
-    http_response_code(405);
-    header('Content-Type: text/plain; charset=UTF-8');
-    echo 'Method not allowed.';
-    exit;
+    respond(405, false, 'Method not allowed.', null, $smtpDebug);
 }
 
 $honeypot = trim((string) ($_POST['website'] ?? ''));
 if ($honeypot !== '') {
-    if (wants_json()) {
-        send_json(400, false, 'Invalid submission.', null, $smtpDebug);
-    }
-    http_response_code(400);
-    header('Content-Type: text/plain; charset=UTF-8');
-    echo 'Invalid submission.';
-    exit;
+    respond(400, false, 'Invalid submission.', null, $smtpDebug);
 }
 
 $fullName = trim((string) ($_POST['full_name'] ?? ''));
 $email = trim((string) ($_POST['email'] ?? ''));
 $notes = trim((string) ($_POST['notes'] ?? ''));
 
-if ($email === '') {
-    if (wants_json()) {
-        send_json(400, false, 'Please provide an email address.', null, $smtpDebug);
-    }
-    http_response_code(400);
-    header('Content-Type: text/plain; charset=UTF-8');
-    echo 'Please provide an email address.';
-    exit;
-}
+validate_field($email, 'Please provide an email address.', $smtpDebug);
 
 if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-    if (wants_json()) {
-        send_json(400, false, 'Please provide a valid email address.', null, $smtpDebug);
-    }
-    http_response_code(400);
-    header('Content-Type: text/plain; charset=UTF-8');
-    echo 'Please provide a valid email address.';
-    exit;
+    respond(400, false, 'Please provide a valid email address.', null, $smtpDebug);
 }
 
-if ($notes === '') {
-    if (wants_json()) {
-        send_json(400, false, 'Please enter a message.', null, $smtpDebug);
-    }
-    http_response_code(400);
-    header('Content-Type: text/plain; charset=UTF-8');
-    echo 'Please enter a message.';
-    exit;
-}
+validate_field($notes, 'Please provide a message.', $smtpDebug);
 
 $subjectName = sanitize_single_line($fullName);
 $subjectEmail = sanitize_single_line($email);
@@ -275,13 +268,7 @@ $to = 'joshua@treudler.net';
 [$ok, $error] = smtp_send($host, $port, $user ?? '', $pass ?? '', $from ?? 'system@jarnowifi.net', $to, $subject, $body, $useTls);
 
 if (!$ok) {
-    if (wants_json()) {
-        send_json(500, false, 'Email sending failed.', $error, $smtpDebug);
-    }
-    http_response_code(500);
-    header('Content-Type: text/plain; charset=UTF-8');
-    echo 'Email sending failed. ' . $error;
-    exit; 
+    respond(500, false, 'Email sending failed.', $error, $smtpDebug);
 }
 
 $lang = sanitize_single_line((string) ($_POST['lang'] ?? ''));
