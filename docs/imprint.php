@@ -72,6 +72,11 @@
             </div>
 
             <div class="card info-card p-4 mb-4">
+              <h5 class="fw-semibold" data-i18n="impressum.responsible.title">Verantwortlich für die Website</h5>
+              <p class="text-muted mb-0" data-i18n="impressum.responsible.value">Joshua Treudler</p>
+            </div>
+
+            <div class="card info-card p-4 mb-4">
               <h5 class="fw-semibold" data-i18n="impressum.register.title">Registereintrag</h5>
               <p class="text-muted mb-0" data-i18n="impressum.register.value">Nicht im Handelsregister eingetragen.</p>
             </div>
